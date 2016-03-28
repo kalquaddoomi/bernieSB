@@ -1,0 +1,9 @@
+{
+  "name": "kalquaddoomi/berniefb",
+  "description": "Bernie Facebanking tracker. A shameless copy of BerniePB",
+  "license": "MIT",
+  "require": {
+    "predis/predis":"1.*",
+    "twbs/bootstrap": "^3.3"
+  }
+}

@@ -1,0 +1,41 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: khaled
+ * Date: 3/24/16
+ * Time: 4:11 PM
+ */
+
+require "../vendor/autoload.php";
+require "../vendor/predis/predis/autoload.php";
+date_default_timezone_set('America/New_York');
+
+$single_server = array(
+    'host'     => '127.0.0.1',
+    'port'     => 6379,
+    'database' => 4
+);
+
+if(isset($_GET['fbactor']) && isset($_GET['fbact'])) {
+    $pClient = new Predis\Client($single_server, array('profile' => '2.8'));
+
+    $rHKey = $_GET['fbactor'];
+    $rHField = $_GET['fbact'];
+    $pClient->hincrby($rHKey, $rHField, 1);
+    $pClient->incr($rHField);
+
+    if(isset($_GET['fbinv'])) {
+        if(isset($_GET['pvtid']))
+            $pClient->hset($_GET['fbinv'], 'pvt', $_GET['pvtid']);
+        else if(isset($_GET['dmts'])) {
+            $pClient->hset($_GET['fbinv'], 'dmts', $_GET['dmts']);
+        } else if(isset($_GET['pubid'])) {
+            $pClient->hset($_GET['fbinv'], 'pub', $_GET['pubid']);
+        }
+    }
+    if(isset($_GET['fbst'])) {
+        $rStHKey = $_GET['fbst'];
+        $rStHField = $_GET['fbact'];
+        $pClient->hincrby($_GET['fbst'], $_GET['fbact'], 1);
+    }
+}
