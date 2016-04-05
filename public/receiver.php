@@ -18,11 +18,11 @@ $single_server = array(
 
 if(isset($_GET['fbactor']) && isset($_GET['fbact'])) {
     $pClient = new Predis\Client($single_server, array('profile' => '2.8'));
-
+    $now = date('m-d-y');
     $rHKey = $_GET['fbactor'];
     $rHField = $_GET['fbact'];
     $pClient->hincrby($rHKey, $rHField, 1);
-    $pClient->incr($rHField);
+    $pClient->incr($rHField."_".$now);
 
     if(isset($_GET['fbinv'])) {
         if(isset($_GET['pvtid']))
@@ -36,6 +36,6 @@ if(isset($_GET['fbactor']) && isset($_GET['fbact'])) {
     if(isset($_GET['fbst'])) {
         $rStHKey = $_GET['fbst'];
         $rStHField = $_GET['fbact'];
-        $pClient->hincrby($_GET['fbst'], $_GET['fbact'], 1);
+        $pClient->hincrby($_GET['fbst']."_".$now, $_GET['fbact'], 1);
     }
 }
