@@ -22,7 +22,13 @@ if(isset($_GET['fbactor']) && isset($_GET['fbact'])) {
     $rHKey = $_GET['fbactor'];
     $rHField = $_GET['fbact'];
     $pClient->hincrby($rHKey, $rHField, 1);
-    $pClient->incr($rHField.":".$now);
+    if(isset($_GET['fbhits'])) {
+        $rHits = $_GET['fbhits'];
+        $pClient->incrby($rHField . ":" . $now, $rStHits);
+    } else {
+        $pClient->incr($rHField . ":" . $now);
+    }
+    $pClient->incr($rHField . ":actions:" . $now);
 
     if(isset($_GET['fbinv'])) {
         if(isset($_GET['pvtid']))
@@ -36,7 +42,13 @@ if(isset($_GET['fbactor']) && isset($_GET['fbact'])) {
     if(isset($_GET['fbst'])) {
         $rStHKey = $_GET['fbst'];
         $rStHField = $_GET['fbact'];
-        $pClient->hincrby($_GET['fbst']."_".$now, $_GET['fbact'], 1);
-        $pClient->incr($rStHKey.":".$rStHField.":".$now);
+        $pClient->hincrby($_GET['fbst'].":".$now, $_GET['fbact'], 1);
+        if(isset($_GET['fbhits'])) {
+            $rStHits = $_GET['fbhits'];
+            $pClient->incrby($rStHKey . ":" . $rStHField . ":" . $now, $rStHits);
+        } else {
+            $pClient->incr($rStHKey . ":" . $rStHField . ":" . $now);
+        }
+        $pClient->incr($rStHKey . ":" . $rStHField . ":actions:" . $now);
     }
 }
