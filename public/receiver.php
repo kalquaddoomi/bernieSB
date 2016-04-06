@@ -24,7 +24,7 @@ if(isset($_GET['fbactor']) && isset($_GET['fbact'])) {
     $pClient->hincrby($rHKey, $rHField, 1);
     if(isset($_GET['fbhits'])) {
         $rHits = $_GET['fbhits'];
-        $pClient->incrby($rHField . ":" . $now, $rStHits);
+        $pClient->incrby($rHField . ":" . $now, $rHits);
     } else {
         $pClient->incr($rHField . ":" . $now);
     }
