@@ -37,5 +37,6 @@ if(isset($_GET['fbactor']) && isset($_GET['fbact'])) {
         $rStHKey = $_GET['fbst'];
         $rStHField = $_GET['fbact'];
         $pClient->hincrby($_GET['fbst']."_".$now, $_GET['fbact'], 1);
+        $pClient->incr($rStHKey.":".$rStHField.":".$now);
     }
 }
