@@ -22,7 +22,7 @@ if(isset($_GET['fbactor']) && isset($_GET['fbact'])) {
     $rHKey = $_GET['fbactor'];
     $rHField = $_GET['fbact'];
     $pClient->hincrby($rHKey, $rHField, 1);
-    $pClient->incr($rHField."_".$now);
+    $pClient->incr($rHField.":".$now);
 
     if(isset($_GET['fbinv'])) {
         if(isset($_GET['pvtid']))
