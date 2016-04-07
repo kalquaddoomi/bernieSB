@@ -18,35 +18,49 @@ class Reporter {
         'database' => 4
     );
     private $_events = array('Invite', 'Message');
+    private $_now;
 
     public function __construct($flush=false) {
         $this->_pclient = new \Predis\Client($this->_single_server, array('profile' => '2.8'));
         if($flush) {
             $this->_pclient->flushdb();
         }
+        $this->_now = date('m-d-y');
     }
 
-    public function stateInvites($stateName, $date) {
+    public function stateInvites($stateName, $date = null) {
+        if(is_null($date)) {
+            $date = $this->_now;
+        }
         $invitations = $this->_pclient->get($stateName.":Invite:".$date);
         $actionInvites = $this->_pclient->get($stateName.":Invite:actions:".$date);
         $output = array("State"=>$stateName, "Date"=>$date, "Invitees"=>$invitations, "Users"=>$actionInvites);
         return $output;
     }
 
-    public function stateMessages($stateName, $date) {
+    public function stateMessages($stateName, $date = null) {
+        if(is_null($date)) {
+            $date = $this->_now;
+        }
         $messages = $this->_pclient->get($stateName.":Message:".$date);
         $actionMessages = $this->_pclient->get($stateName.":Message:actions:".$date);
         $output = array("State"=>$stateName, "Date"=>$date, "Invitees"=>$messages, "Users"=>$actionMessages);
         return $output;
     }
 
-    public function totalInvites($date) {
+    public function totalInvites($date = null) {
+        if(is_null($date)) {
+            $date = $this->_now;
+        }
         $invites = $this->_pclient->get("Invite:".$date);
         $output = array("Date"=>$date, "Invitees"=>$invites);
         return $output;
     }
 
-    public function totalMessages($date) {
+    public function totalMessages($date = null) {
+        if(is_null($date)) {
+            $date = $this->_now;
+        }
         $messages = $this->_pclient->get("Message:".$date);
         $output = array("Date"=>$date, "Invitees"=>$messages);
         return $output;
