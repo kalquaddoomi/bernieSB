@@ -30,26 +30,26 @@ class Reporter {
         $invitations = $this->_pclient->get($stateName.":Invite:".$date);
         $actionInvites = $this->_pclient->get($stateName.":Invite:actions:".$date);
         $output = array("State"=>$stateName, "Date"=>$date, "Invitees"=>$invitations, "Users"=>$actionInvites);
-        return json_encode($output);
+        return $output;
     }
 
     public function stateMessages($stateName, $date) {
         $messages = $this->_pclient->get($stateName.":Message:".$date);
         $actionMessages = $this->_pclient->get($stateName.":Message:actions:".$date);
         $output = array("State"=>$stateName, "Date"=>$date, "Invitees"=>$messages, "Users"=>$actionMessages);
-        return json_encode($output);
+        return $output;
     }
 
     public function totalInvites($date) {
         $invites = $this->_pclient->get("Invite:".$date);
         $output = array("Date"=>$date, "Invitees"=>$invites);
-        return json_encode($output);
+        return $output;
     }
 
     public function totalMessages($date) {
         $messages = $this->_pclient->get("Message:".$date);
         $output = array("Date"=>$date, "Invitees"=>$messages);
-        return json_encode($output);
+        return $output;
     }
 
 }

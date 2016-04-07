@@ -11,33 +11,52 @@ date_default_timezone_set('America/New_York');
 $transmitter = new Reporter();
 $now = date('m-d-y');
 
+function outputInfo($output, $mode='json') {
+    if($mode == 'json') {
+        echo json_encode($output);
+    } else if($mode == 'fusion') {
+        if(isset($output['Error'])) {
+            echo "&value=0";
+        } else {
+            echo "&value=".($output['Invitees'] ? :0);
+        }
+    }
+    return;
+}
+
 if(!isset($_GET['act'])) {
     $output = array("Error"=>"No Action Set");
-    echo json_encode($output);
+    outputInfo($output);
     exit();
 }
 if(isset($_GET['date'])) {
     $now = $_GET['date'];
 }
+$outMode = 'json';
+if(isset($_GET['mode'])) {
+    if($_GET['mode'] == 'fusion') {
+        $outMode = 'fusion';
+    }
+}
 
 switch($_GET['act']) {
     case 'invite':
         if(isset($_GET['state'])) {
-            echo $transmitter->stateInvites($_GET['state'], $now);
+            outputInfo($transmitter->stateInvites($_GET['state'], $now), $outMode);
         } else {
-            echo $transmitter->totalInvites($now);
+            outputInfo($transmitter->totalInvites($now), $outMode);
         }
         break;
     case 'message':
         if(isset($_GET['state'])) {
-            echo $transmitter->stateMessages($_GET['state'], $now);
+            outputInfo($transmitter->stateMessages($_GET['state'], $now), $outMode);
         } else {
-            echo $transmitter->totalMessages($now);
+            outputInfo($transmitter->totalMessages($now), $outMode);
         }
         break;
     default:
         $output = array("Error"=>"Unknown Action");
-        echo json_encode($output);
+        outputInfo($output, $outMode);
         exit();
 }
 exit();
