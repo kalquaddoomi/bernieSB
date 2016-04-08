@@ -83,7 +83,7 @@
     "chart": {
       "lowerLimit": "0",
       "lowerLimitDisplay": "0",
-      "numberSuffix": " Invitations",
+      "numberSuffix": " Facebanking Users",
       "useSameFillColor": "1",
       "useSameFillBgColor": "1",
       "showGaugeBorder":"0",

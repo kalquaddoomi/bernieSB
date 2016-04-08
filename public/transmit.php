@@ -18,7 +18,7 @@ function outputInfo($output, $mode='json') {
         if(isset($output['Error'])) {
             echo "&value=0";
         } else {
-            echo "&value=".($output['Invitees'] ? :0);
+            echo "&value=".($output['Users'] ? :0);
         }
     }
     return;
