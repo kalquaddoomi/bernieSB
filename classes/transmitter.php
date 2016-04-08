@@ -53,7 +53,8 @@ class Reporter {
             $date = $this->_now;
         }
         $invites = $this->_pclient->get("Invite:".$date);
-        $output = array("Date"=>$date, "Invitees"=>$invites);
+        $actionInvites = $this->_pclient->get("Invite:actions:".$date);
+        $output = array("Date"=>$date, "Invitees"=>$invites, "Users"=>$actionInvites);
         return $output;
     }
 
@@ -62,7 +63,8 @@ class Reporter {
             $date = $this->_now;
         }
         $messages = $this->_pclient->get("Message:".$date);
-        $output = array("Date"=>$date, "Invitees"=>$messages);
+        $actionMessages = $this->_pclient->get("Message:actions:".$date);
+        $output = array("Date"=>$date, "Invitees"=>$messages, "Users"=>$actionMessages);
         return $output;
     }
 
