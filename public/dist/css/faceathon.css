@@ -1,0 +1,33 @@
+.state-block {
+    border:2px solid black;
+    border-radius: 15px;
+    background-color:#efefff;
+    padding:10px;
+}
+
+.states-row {
+    margin-top:50px;
+}
+
+.state-pic {
+    height:100px;
+    width:25%;
+    float:left;
+}
+.state-bar {
+    float:left;
+}
+.state-notice {
+    font-weight: bold;
+    font-color: #317abe;
+}
+.state-delegates {
+    float:left;
+    width:50%;
+    text-align:left;
+}
+.state-election {
+    float:right;
+    width:50%;
+    text-align:right;
+}

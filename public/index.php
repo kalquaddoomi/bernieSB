@@ -1,4 +1,6 @@
 <?php
+include "../data/current.php";
+/*
   include "../classes/transmitter.php";
   $InitReporter = new Reporter();
   $stateOut = array();
@@ -23,6 +25,7 @@
     $aState['start'] = (is_null($data['Invitees']) ? 0 : $data['Invitees']);
     $stateOut[] = $aState;
   }
+*/
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,12 +40,13 @@
   <!-- Place favicon.ico in the root directory -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./dist/css/faceathon.css">
   <script type="text/javascript" src="./dist/fusioncharts/js/fusioncharts.js"></script>
   <script type="text/javascript" src="./dist/fusioncharts/js/themes/fusioncharts.theme.fint.js"></script>
 
 </head>
 <body>
-  <div class="row getinvolved">
+  <div class="col-md-12 getinvolved">
     <div class="col-md-4">
 
     </div>
@@ -50,8 +54,8 @@
 
     </div>
   </div>
-  <div class="row dailytotals">
-    <div class="col-md-10 col-md-offset-1">
+  <div class="col-md-12 dailytotals">
+    <div class="col-md-9 col-md-offset-1">
       <div id="chart-invites-today">LED gauges will load here!</div>
     </div>
   </div>
@@ -59,14 +63,30 @@
   $counter = 1;
   foreach($currentStates as $aState) {
       if($counter % 2) {
-        echo "<div class='row'>\n";
-        echo "  <div class='col-md-5 col-md-offset-1 stateTotals' id='".$aState['key']."'>\n";
-        echo "    <div id='chart-invites-".$aState['chart']."'>Loading ".$aState['url']."...</div>\n";
+        echo "<div class='col-md-12 states-row'>\n";
+        echo "  <div class='col-md-4 col-md-offset-1 state-block stateTotals' id='".$aState['key']."'>\n";
+        echo " <div class='col-md-12 state-notice'><span class='state-delegates'>At Stake: ".$aState['delegates']." delegates</span><span class='state-date'>Election: ".str_replace('-', '/', $aState['electdate'])."</span></div>";
+        echo "<div class='col-md-12'>";
+        if($aState['img']) {
+          echo "    <img class='state-pic' src='./dist/img/" . $aState['img'] . "' />";
+        } else {
+          echo "    <div class='state-pic'></div>";
+        }
+        echo "    <div class='state-bar' id='chart-invites-".$aState['chart']."'>Loading ".$aState['url']."...</div>\n";
+        echo "    </div>\n";
         echo "  </div>\n";
       } else {
-        echo "  <div class='col-md-5 stateTotals' id='".$aState['key']."'>\n";
-        echo "    <div id='chart-invites-".$aState['chart']."'>Loading ".$aState['url']."...</div>\n";
-        echo "  </div>\n";
+        echo "  <div class='col-md-4 col-md-offset-1 stateTotals state-block' id='".$aState['key']."'>\n";
+        echo " <div class='col-md-12 state-notice'><span class='state-delegates'>At Stake: ".$aState['delegates']." delegates</span><span class='state-date'>Election: ".str_replace('-', '/', $aState['electdate'])."</span></div>";
+        echo "<div class='col-md-12'>";
+        if($aState['img']) {
+          echo "    <img class='state-pic' src='./dist/img/" . $aState['img'] . "' />";
+        } else {
+          echo "    <div class='state-pic'></div>";
+        }
+        echo "    <div class='state-bar' id='chart-invites-".$aState['chart']."'>Loading ".$aState['url']."...</div>\n";
+        echo "    </div>\n";
+        echo "   </div>\n";
         echo "</div>\n";
       }
       $counter++;
@@ -83,12 +103,15 @@
     "chart": {
       "lowerLimit": "0",
       "lowerLimitDisplay": "0",
-      "numberSuffix": " Facebanking Users",
+      "numberSuffix": " Users",
       "useSameFillColor": "1",
       "useSameFillBgColor": "1",
       "showGaugeBorder":"0",
       "refreshInterval":"5",
-      "ledGap":"0"
+      "ledGap":"0",
+      "borderThickness":"0",
+      "bgColor":"efefff",
+      "bgAlpha":"100"
     },
     "colorRange": {
       "color":[ {
@@ -125,7 +148,7 @@
     echo "var invitesDaily".$rState['key']." = new FusionCharts({\n";
     echo "\"type\": \"hled\",\n";
     echo "\"renderAt\": \"chart-invites-".$rState['chart']."\",\n";
-    echo "\"width\": \"100%\",\n";
+    echo "\"width\": \"65%\",\n";
     echo "\"height\": \"100\",\n";
     echo "\"dataFormat\": \"json\",\n";
     echo "\"dataSource\":inviteDailyBase\n";
