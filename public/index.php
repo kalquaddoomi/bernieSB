@@ -63,7 +63,7 @@ include "../data/current.php";
   $counter = 1;
 
   function makeState($aState) {
-    echo "<a href='http://www.facebook.com' target='_blank'>";
+    echo "<a href='https://www.facebook.com/search/9124187907/likers/124955570892789/likers/union/". $aState['stateid'] ."/residents/present/me/friends/friends/intersect' target='_blank'>";
     echo "  <div class='col-md-4 col-md-offset-1 state-block stateTotals' id='".$aState['key']."'>\n";
     echo " <div class='col-md-12 state-notice'><span class='state-name'>".$aState['name']."</span><span class='state-delegates'>At Stake: ".$aState['delegates']." delegates</span><span class='state-date'>".str_replace('-', '/', $aState['electdate'])."</span></div>";
     echo "<div class='col-md-12'>";
@@ -175,7 +175,7 @@ echo "var invitesDaily".$rState['key']."invitees = new FusionCharts({\n";
     echo "invitesDaily".$rState['key']."invitees.setChartAttribute({\n";
     echo "\"dataStreamURL\":\"transmit.php?act=invite&which=invitees&mode=fusion&state=".urlencode($rState['url'])."\",\n";
     echo "\"caption\": \"".$rState['name']."\",\n";
-    echo "\"upperLimit\":\"500\",\n";
+    echo "\"upperLimit\":\"5000\",\n";
     echo "\"numberSuffix\":\" Invites\",\n";
     echo "});\n";
     echo "invitesDaily".$rState['key']."invitees.render();\n";
