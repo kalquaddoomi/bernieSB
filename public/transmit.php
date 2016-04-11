@@ -45,18 +45,19 @@ if(isset($_GET['mode'])) {
 
 switch($_GET['act']) {
     case 'invite':
+        $how = $_GET['which'];
 
         if(isset($_GET['state'])) {
-            outputInfo($transmitter->stateInvites($_GET['state'], $now), $outMode, (isset($_GET['which']) ? $_GET['which']: null));
+            outputInfo($transmitter->stateInvites($_GET['state'], $now), $outMode, $how);
         } else {
-            outputInfo($transmitter->totalInvites($now), $outMode, (isset($_GET['which']) ? $_GET['which']: null));
+            outputInfo($transmitter->totalInvites($now, $outMode, $how));
         }
         break;
     case 'message':
         if(isset($_GET['state'])) {
             outputInfo($transmitter->stateMessages($_GET['state'], $now), $outMode);
         } else {
-            outputInfo($transmitter->totalMessages($now), $outMode);
+            outputInfo($transmitter->totalMessages($now, $outMode));
         }
         break;
     default:

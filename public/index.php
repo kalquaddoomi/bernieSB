@@ -139,7 +139,7 @@ include "../data/current.php";
     "value":"<?php echo $tVal ?>"
   });
   invitesDaily.setChartAttribute({
-    "dataStreamURL":"transmit.php?act=invite&mode=fusion",
+    "dataStreamURL":"transmit.php?act=invite&mode=fusion&which=action",
     "caption": "Invitations Sent Today",
     "upperLimit":"7000"
   });
