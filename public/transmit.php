@@ -50,14 +50,14 @@ switch($_GET['act']) {
         if(isset($_GET['state'])) {
             outputInfo($transmitter->stateInvites($_GET['state'], $now), $outMode, $how);
         } else {
-            outputInfo($transmitter->totalInvites($now, $outMode, $how));
+            outputInfo($transmitter->totalInvites($now), $outMode, $how);
         }
         break;
     case 'message':
         if(isset($_GET['state'])) {
             outputInfo($transmitter->stateMessages($_GET['state'], $now), $outMode);
         } else {
-            outputInfo($transmitter->totalMessages($now, $outMode));
+            outputInfo($transmitter->totalMessages($now), $outMode);
         }
         break;
     default:
