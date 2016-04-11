@@ -11,14 +11,18 @@ date_default_timezone_set('America/New_York');
 $transmitter = new Reporter();
 $now = date('m-d-y');
 
-function outputInfo($output, $mode='json') {
+function outputInfo($output, $mode='json', $which='action') {
     if($mode == 'json') {
         echo json_encode($output);
     } else if($mode == 'fusion') {
         if(isset($output['Error'])) {
             echo "&value=0";
         } else {
-            echo "&value=".($output['Users'] ? :0);
+            if($which == 'action') {
+                echo "&value=" . ($output['Users'] ?: 0);
+            } else if($which == 'invitees') {
+                echo "&value=" . ($output['Invitees'] ?: 0);
+            }
         }
     }
     return;
@@ -41,10 +45,11 @@ if(isset($_GET['mode'])) {
 
 switch($_GET['act']) {
     case 'invite':
+
         if(isset($_GET['state'])) {
-            outputInfo($transmitter->stateInvites($_GET['state'], $now), $outMode);
+            outputInfo($transmitter->stateInvites($_GET['state'], $now), $outMode, (isset($_GET['which']) ? $_GET['which']: null));
         } else {
-            outputInfo($transmitter->totalInvites($now), $outMode);
+            outputInfo($transmitter->totalInvites($now), $outMode, (isset($_GET['which']) ? $_GET['which']: null));
         }
         break;
     case 'message':

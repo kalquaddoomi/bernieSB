@@ -33,7 +33,7 @@ include "../data/current.php";
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <title>Bernie Facebankathon</title>
-  <meta name="description" content="">
+  <meta name="description" content="The Bernie Facebankathon using Feelthebern.event and Berniefriendfinder.com">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -61,33 +61,36 @@ include "../data/current.php";
   </div>
   <?php
   $counter = 1;
+
+  function makeState($aState) {
+    echo "<a href='http://www.facebook.com' target='_blank'>";
+    echo "  <div class='col-md-4 col-md-offset-1 state-block stateTotals' id='".$aState['key']."'>\n";
+    echo " <div class='col-md-12 state-notice'><span class='state-name'>".$aState['name']."</span><span class='state-delegates'>At Stake: ".$aState['delegates']." delegates</span><span class='state-date'>".str_replace('-', '/', $aState['electdate'])."</span></div>";
+    echo "<div class='col-md-12'>";
+    echo "<div class='col-md-4'>";
+    if($aState['img']) {
+      echo "    <img class='state-pic' src='./dist/img/" . $aState['img'] . "' />";
+    } else {
+      echo "    <div class='state-pic'></div>";
+    }
+    echo "</div>";
+    echo "<div class='col-md-8'>";
+    echo "    <div class='state-bar' id='chart-actors-".$aState['chart']."'>Loading ".$aState['url']."...</div>\n";
+    echo "    <div class='state-bar' id='chart-invitees-".$aState['chart']."'>Loading ".$aState['url']."...</div>\n";
+    echo "</div>";
+    echo "    </div>\n";
+    echo "  </div>\n";
+    echo "</a>";
+    return;
+  }
+
   foreach($currentStates as $aState) {
       if($counter % 2) {
         echo "<div class='col-md-12 states-row'>\n";
-        echo "  <div class='col-md-4 col-md-offset-1 state-block stateTotals' id='".$aState['key']."'>\n";
-        echo " <div class='col-md-12 state-notice'><span class='state-delegates'>At Stake: ".$aState['delegates']." delegates</span><span class='state-date'>Election: ".str_replace('-', '/', $aState['electdate'])."</span></div>";
-        echo "<div class='col-md-12'>";
-        if($aState['img']) {
-          echo "    <img class='state-pic' src='./dist/img/" . $aState['img'] . "' />";
-        } else {
-          echo "    <div class='state-pic'></div>";
-        }
-        echo "    <div class='state-bar' id='chart-invites-".$aState['chart']."'>Loading ".$aState['url']."...</div>\n";
-        echo "    </div>\n";
-        echo "  </div>\n";
+        makeState($aState);
       } else {
-        echo "  <div class='col-md-4 col-md-offset-1 stateTotals state-block' id='".$aState['key']."'>\n";
-        echo " <div class='col-md-12 state-notice'><span class='state-delegates'>At Stake: ".$aState['delegates']." delegates</span><span class='state-date'>Election: ".str_replace('-', '/', $aState['electdate'])."</span></div>";
-        echo "<div class='col-md-12'>";
-        if($aState['img']) {
-          echo "    <img class='state-pic' src='./dist/img/" . $aState['img'] . "' />";
-        } else {
-          echo "    <div class='state-pic'></div>";
-        }
-        echo "    <div class='state-bar' id='chart-invites-".$aState['chart']."'>Loading ".$aState['url']."...</div>\n";
-        echo "    </div>\n";
-        echo "   </div>\n";
-        echo "</div>\n";
+        makeState($aState);
+        echo "  </div>\n";
       }
       $counter++;
   }?>
@@ -145,22 +148,37 @@ include "../data/current.php";
 
   <?php
   foreach($stateOut as $rState) {
-    echo "var invitesDaily".$rState['key']." = new FusionCharts({\n";
+    echo "var invitesDaily".$rState['key']."actors = new FusionCharts({\n";
     echo "\"type\": \"hled\",\n";
-    echo "\"renderAt\": \"chart-invites-".$rState['chart']."\",\n";
-    echo "\"width\": \"65%\",\n";
-    echo "\"height\": \"100\",\n";
+    echo "\"renderAt\": \"chart-actors-".$rState['chart']."\",\n";
+    echo "\"width\": \"100%\",\n";
+    echo "\"height\": \"50\",\n";
     echo "\"dataFormat\": \"json\",\n";
     echo "\"dataSource\":inviteDailyBase\n";
     echo "});\n";
-    echo "invitesDaily".$rState['key'].".setChartAttribute({\n";
-    echo "\"dataStreamURL\":\"transmit.php?act=invite&mode=fusion&state=".urlencode($rState['url'])."\",\n";
+    echo "invitesDaily".$rState['key']."actors.setChartAttribute({\n";
+    echo "\"dataStreamURL\":\"transmit.php?act=invite&which=action&mode=fusion&state=".urlencode($rState['url'])."\",\n";
     echo "\"caption\": \"".$rState['name']."\",\n";
     echo "\"upperLimit\":\"500\",\n";
-    echo "\"value\":\"".$rState['start']."\"\n";
+    echo "\"numberSuffix\":\" Bankers\",\n";
     echo "});\n";
-    echo "invitesDaily".$rState['key'].".render();\n";
+    echo "invitesDaily".$rState['key']."actors.render();\n";
 
+echo "var invitesDaily".$rState['key']."invitees = new FusionCharts({\n";
+    echo "\"type\": \"hled\",\n";
+    echo "\"renderAt\": \"chart-invitees-".$rState['chart']."\",\n";
+    echo "\"width\": \"100%\",\n";
+    echo "\"height\": \"50\",\n";
+    echo "\"dataFormat\": \"json\",\n";
+    echo "\"dataSource\":inviteDailyBase\n";
+    echo "});\n";
+    echo "invitesDaily".$rState['key']."invitees.setChartAttribute({\n";
+    echo "\"dataStreamURL\":\"transmit.php?act=invite&which=invitees&mode=fusion&state=".urlencode($rState['url'])."\",\n";
+    echo "\"caption\": \"".$rState['name']."\",\n";
+    echo "\"upperLimit\":\"500\",\n";
+    echo "\"numberSuffix\":\" Invites\",\n";
+    echo "});\n";
+    echo "invitesDaily".$rState['key']."invitees.render();\n";
   }
  ?>
 
