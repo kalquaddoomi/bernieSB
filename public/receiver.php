@@ -55,10 +55,11 @@ if(isset($_GET['fbactor']) && isset($_GET['fbact'])) {
     }
 } else if(isset($_GET['fbtrk'])) {
     if(isset($_GET['pvtid'])) {
-        if(isset($_GET['fbinv']) && length($_GET['fbinv'] > 0)) {
+        if(isset($_GET['pvtid']) && length($_GET['fbinv'] > 0)) {
             $fbInvitees = explode('|', $_GET['fbinv']);
+            $fbStat = (isset($_GET['fbstat']) ? $_GET['fbstat'] : 'Unknown');
             foreach($fbInvitees as $fbInvitee) {
-                $pClient->hsetnx("private:" . $_GET['pvtid'], $fbInvitee, 1);
+                $pClient->hsetnx("private:" . $_GET['pvtid'], $fbInvitee, $fbStat);
             }
         }
     }
