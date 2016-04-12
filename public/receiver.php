@@ -15,9 +15,8 @@ $single_server = array(
     'port'     => 6379,
     'database' => 4
 );
-
+$pClient = new Predis\Client($single_server, array('profile' => '2.8'));
 if(isset($_GET['fbactor']) && isset($_GET['fbact'])) {
-    $pClient = new Predis\Client($single_server, array('profile' => '2.8'));
     $now = date('m-d-y');
     $rHKey = $_GET['fbactor'];
     $rHField = $_GET['fbact'];
