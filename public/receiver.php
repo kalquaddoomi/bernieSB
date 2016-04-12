@@ -22,6 +22,7 @@ if(isset($_GET['fbactor']) && isset($_GET['fbact'])) {
     $rHKey = $_GET['fbactor'];
     $rHField = $_GET['fbact'];
     $pClient->hincrby($rHKey, $rHField, 1);
+
     if(isset($_GET['fbhits'])) {
         $rHits = $_GET['fbhits'];
         $pClient->incrby($rHField . ":" . $now, $rHits);
@@ -32,13 +33,14 @@ if(isset($_GET['fbactor']) && isset($_GET['fbact'])) {
 
     if(isset($_GET['fbinv'])) {
         if(isset($_GET['pvtid']))
-            $pClient->hset($_GET['fbinv'], 'pvt', $_GET['pvtid']);
+            $pClient->hset("fbu:".$_GET['fbinv'], 'pvt', $_GET['pvtid']);
         else if(isset($_GET['dmts'])) {
-            $pClient->hset($_GET['fbinv'], 'dmts', $_GET['dmts']);
+            $pClient->hset("fbu:".$_GET['fbinv'], 'dmts', $_GET['dmts']);
         } else if(isset($_GET['pubid'])) {
-            $pClient->hset($_GET['fbinv'], 'pub', $_GET['pubid']);
+            $pClient->hset("fbu:".$_GET['fbinv'], 'pub', $_GET['pubid']);
         }
     }
+
     if(isset($_GET['fbst'])) {
         $rStHKey = $_GET['fbst'];
         $rStHField = $_GET['fbact'];
@@ -51,4 +53,14 @@ if(isset($_GET['fbactor']) && isset($_GET['fbact'])) {
         }
         $pClient->incr($rStHKey . ":" . $rStHField . ":actions:" . $now);
     }
+} else if(isset($_GET['fbtrk'])) {
+    if(isset($_GET['pvtid'])) {
+        if(isset($_GET['fbinv']) && length($_GET['fbinv'] > 0)) {
+            $fbInvitees = explode('|', $_GET['fbinv']);
+            foreach($fbInvitees as $fbInvitee) {
+                $pClient->hsetnx("private:" . $_GET['pvtid'], $fbInvitee, 1);
+            }
+        }
+    }
 }
+
