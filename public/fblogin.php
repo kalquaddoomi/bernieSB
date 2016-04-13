@@ -16,7 +16,7 @@ $fb = new Facebook\Facebook([
 
 $helper = $fb->getRedirectLoginHelper();
 
-$permissions = ['email', 'rsvp_event']; // Optional permissions
+$permissions = ['email', 'rsvp_event', 'user_events']; // Optional permissions
 //$loginUrl = $helper->getLoginUrl('https://www.berniefb.dev/fb-callback.php', $permissions);
 $loginUrl = $helper->getLoginUrl('http://52.36.36.30/fbcallback.php', $permissions);
 
