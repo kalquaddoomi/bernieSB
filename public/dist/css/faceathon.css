@@ -1,3 +1,39 @@
+.getinvolved {
+    border:2px solid black;
+    background-color:#efefef;
+    min-height:40px;
+    margin-top:10px;
+    margin-bottom:20px;
+    border-radius:5px;
+}
+
+.ftb-promo {
+    width:40%;
+    float:left;
+    text-align:center;
+}
+.bff-promo {
+    margin-left:10%;
+    width:50%;
+    float:left;
+}
+.ftb-pic {
+    height:60px;
+    padding-top:5px;
+    padding-bottom:2px;
+}
+.bff-pic {
+    height:60px;
+    width:100%;
+}
+
+.ftb-tag {
+    width:100%;
+}
+.bff-tag {
+    width:100%
+}
+
 .state-block {
     border:2px solid black;
     border-radius: 15px;
@@ -7,7 +43,7 @@
 }
 
 a {
-    text-decoration: none;
+text-decoration: none;
     color: #317abe;;
 }
 

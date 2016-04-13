@@ -46,12 +46,28 @@ include "../data/current.php";
 
 </head>
 <body>
-  <div class="col-md-12 getinvolved">
+  <div class="col-md-9 col-md-offset-1 getinvolved">
     <div class="col-md-4">
-
+        <div class="ftb-promo">
+            <a href="http://www.feelthebern.events">
+            <div>
+                <img class='ftb-pic' src='./dist/img/bernie.svg' />
+                <span class='ftb-tag'>FeelTheBern.events</span>
+            </div>
+            </a>
+        </div>
+        <div class="bff-promo">
+            <a href="http://www.berniefriendfinder.com">
+                <div>
+                    <img class='bff-pic' src='./dist/img/bff_logo.svg' />
+                    <span class='bff-tag'>BernieFriendFinder.com</span>
+                </div>
+            </a>
+        </div>
     </div>
-    <div class="col-md-8">
-
+    <div class="col-md-7 col-md-offset-1">
+        <h4>The Bernie Facebankathon.</h4>
+        <p>Please visit one of the sites to the left to get started. You'll need to install either the FeeltheBern.events or BernieFriendFinder Bookmark to participate.</p>
     </div>
   </div>
   <div class="col-md-12 dailytotals">
