@@ -85,9 +85,6 @@ function curl_get($url, array $get = NULL, array $options = array())
 
 $accessKey = "CAAWeUZAZAY4jcBAPENgLx06XVEP93xlxfweC0j471fWRpcZCmVyYmneXUkcw8S4SdL9OQREtuvhAWIP8QvXuQGbxfMlO5EzT0ZAUYxgG8wV5TcQDQtKXaCvBmkOKxZAoShSDKdAXztYAbkGRdHn7OEccJ4WiGOyRDyPkpjEPSe9hWEQR4HaOcKB5jydljIZAkZD";
 
-$inviteesRaw = curl_get("https://graph.facebook.com/v2.6/$eventId/noreply", array('access_token'=>$accessKey, 'limit'=>"1000", "after"=>""));
-$invitees = json_decode($inviteesRaw, true);
-
 foreach($eventIds as $st=>$eventId) {
     echo "\nProcessing $st :\n";
     $inviteesRaw = curl_get("https://graph.facebook.com/v2.6/$eventId/noreply", array('access_token' => $accessKey, 'limit' => "1000", "after" => ""));
