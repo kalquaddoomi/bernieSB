@@ -86,9 +86,10 @@ $accessKey = "CAAWeUZAZAY4jcBAPENgLx06XVEP93xlxfweC0j471fWRpcZCmVyYmneXUkcw8S4Sd
 foreach($eventIds as $st=>$eventId) {
     echo "\nProcessing $st :\n";
     $counter = 0;
+
     echo "\nProcess No Replies:\n";
     do {
-        $after = $invitees['paging']['cursors']['after'];
+        $after = (isset($invitees['paging']['cursors']['after']) ? $invitees['paging']['cursors']['after'] : '');
         $inviteesRaw = curl_get("https://graph.facebook.com/v2.6/$eventId/noreply", array('access_token' => $accessKey, 'limit' => "1000", "after" => $after));
         $invitees = json_decode($inviteesRaw, true);
         foreach ($invitees['data'] as $fbInvitee) {
@@ -101,7 +102,7 @@ foreach($eventIds as $st=>$eventId) {
 
     echo "\nProcess Maybes:\n";
     do {
-        $after = $invitees['paging']['cursors']['after'];
+        $after = (isset($invitees['paging']['cursors']['after']) ? $invitees['paging']['cursors']['after'] : '');
         $inviteesRaw = curl_get("https://graph.facebook.com/v2.6/$eventId/maybe", array('access_token' => $accessKey, 'limit' => "1000", "after" => $after));
         $invitees = json_decode($inviteesRaw, true);
         foreach ($invitees['data'] as $fbInvitee) {
@@ -114,7 +115,7 @@ foreach($eventIds as $st=>$eventId) {
 
     echo "\nProcess Declines:\n";
     do {
-        $after = $invitees['paging']['cursors']['after'];
+        $after = (isset($invitees['paging']['cursors']['after']) ? $invitees['paging']['cursors']['after'] : '');
         $inviteesRaw = curl_get("https://graph.facebook.com/v2.6/$eventId/declined", array('access_token' => $accessKey, 'limit' => "1000", "after" => $after));
         $invitees = json_decode($inviteesRaw, true);
         foreach ($invitees['data'] as $fbInvitee) {
@@ -127,7 +128,7 @@ foreach($eventIds as $st=>$eventId) {
 
     echo "\nProcess Attendings:\n";
     do {
-        $after = $invitees['paging']['cursors']['after'];
+        $after = (isset($invitees['paging']['cursors']['after']) ? $invitees['paging']['cursors']['after'] : '');
         $inviteesRaw = curl_get("https://graph.facebook.com/v2.6/$eventId/attending", array('access_token' => $accessKey, 'limit' => "1000", "after" => $after));
         $invitees = json_decode($inviteesRaw, true);
         foreach ($invitees['data'] as $fbInvitee) {
