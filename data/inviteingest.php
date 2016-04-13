@@ -104,6 +104,7 @@ foreach($eventIds as $st=>$eventId) {
         $counter += 1000;
         echo "Processed: $counter : $after        \r";
     }
+    $pClient->set("lastafter:private:$st:$eventId", $after);
 }
 echo "\nDone\n";
 exit();

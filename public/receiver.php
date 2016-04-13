@@ -46,6 +46,9 @@ if(isset($_GET['fbactor']) && isset($_GET['fbact'])) {
         $pClient->hincrby($_GET['fbst'].":".$now, $_GET['fbact'], 1);
         if(isset($_GET['fbhits'])) {
             $rStHits = $_GET['fbhits'];
+            if($rStHits == 'undefined') {
+                $rStHits = 1;
+            }
             $pClient->incrby($rStHKey . ":" . $rStHField . ":" . $now, $rStHits);
         } else {
             $pClient->incr($rStHKey . ":" . $rStHField . ":" . $now);
