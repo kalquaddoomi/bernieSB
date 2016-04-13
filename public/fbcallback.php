@@ -5,7 +5,7 @@
  * Date: 4/13/16
  * Time: 12:10 PM
  */
-
+session_start();
 require_once '../vendor/autoload.php';
 
 $fb = new Facebook\Facebook([
@@ -74,6 +74,9 @@ if (! $accessToken->isLongLived()) {
 }
 
 $_SESSION['fb_access_token'] = (string) $accessToken;
+
+echo "<h3>Long Lived Token</h3>";
+echo $accessToken->getValue();
 
 // User is logged in with a long-lived access token.
 // You can redirect them to a members-only page.

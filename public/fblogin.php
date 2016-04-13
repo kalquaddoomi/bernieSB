@@ -5,7 +5,7 @@
  * Date: 4/13/16
  * Time: 12:09 PM
  */
-
+session_start();
 require_once '../vendor/autoload.php';
 
 $fb = new Facebook\Facebook([
@@ -18,7 +18,7 @@ $helper = $fb->getRedirectLoginHelper();
 
 $permissions = ['email', 'rsvp_event']; // Optional permissions
 //$loginUrl = $helper->getLoginUrl('https://www.berniefb.dev/fb-callback.php', $permissions);
-$loginUrl = $helper->getLoginUrl('http://52.36.36.30/fb-callback.php', $permissions);
+$loginUrl = $helper->getLoginUrl('http://52.36.36.30/fbcallback.php', $permissions);
 
 
 echo '<a href="' . htmlspecialchars($loginUrl) . '">Log in with Facebook!</a>';
