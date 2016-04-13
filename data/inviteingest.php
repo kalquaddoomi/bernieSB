@@ -83,8 +83,11 @@ function curl_get($url, array $get = NULL, array $options = array())
     return $result;
 }
 
+$accessKey = "CAAWeUZAZAY4jcBAGGtKW0pdjBdZCZCfMFrpJcgZAnZBZB66IWcGtVkQMxoaRWS32mGk3PLcCyJEKRvtpVlU7lacuaXRYNPZB7ZCEhdbGOvMq7N5QN1NQi1K0jjqxS6vFkLddkHQCvS3qOKZB8t5FyjyZA9kL4ZAOdfxnQDmIVB4q6xPmPh0b5jvQ4ULTj0yVNGD6BhAZD"
 
-$accessKey = "CAACEdEose0cBAF2X1FlwjdaJRhPR87kqjeytRAxM4NMDopOjk095P5xAeG5nciJnL9yYGgZCXHF4fkUOhI0T0peE89ivkDNjUtewNMHpcQPMaDZCB0EjepWg096fcf3ZCLMvuy5f7qc3W6PmXkYZCxU5XZCKxuuQgECMHsf2fvWmeQtIBbIxdyLTZBUemC94YRiCBBTLxPHQZDZD";
+$inviteesRaw = curl_get("https://graph.facebook.com/v2.6/$eventId/noreply", array('access_token'=>$accessKey, 'limit'=>"1000", "after"=>""));
+$invitees = json_decode($inviteesRaw, true);
+
 
 foreach($eventIds as $st=>$eventId) {
     echo "\nProcessing $st :\n";
