@@ -39,6 +39,8 @@ $fb = new Facebook\Facebook([
     'default_graph_version' => 'v2.5',
 ]);
 
+
+
 function curl_post($url, array $post = NULL, array $options = array())
 {
     $defaults = array(
@@ -93,8 +95,9 @@ foreach($eventIds as $st=>$eventId) {
         $inviteesRaw = curl_get("https://graph.facebook.com/v2.6/$eventId/noreply", array('access_token' => $accessKey, 'limit' => "1000", "after" => $after));
         $invitees = json_decode($inviteesRaw, true);
         foreach ($invitees['data'] as $fbInvitee) {
-            $pClient->hset("private:v2:". $eventId, $fbInvitee['id'], $fbInvitee['rsvp_status']);
+            $pClient->hset("private:v3:". $eventId, $fbInvitee['name'], $fbInvitee['id']);
             $pClient->hsetnx("user:" . $fbInvitee['id'], "api_id", $fbInvitee['id']);
+            $pClient->hsetnx("user:" . $fbInvitee['id'], "name", $fbInvitee['name']);
         }
         $counter += 1000;
         echo "Processed: $counter : $after        \r";
@@ -108,8 +111,9 @@ foreach($eventIds as $st=>$eventId) {
         $inviteesRaw = curl_get("https://graph.facebook.com/v2.6/$eventId/maybe", array('access_token' => $accessKey, 'limit' => "1000", "after" => $after));
         $invitees = json_decode($inviteesRaw, true);
         foreach ($invitees['data'] as $fbInvitee) {
-            $pClient->hset("private:v2:". $eventId, $fbInvitee['id'], $fbInvitee['rsvp_status']);
+            $pClient->hset("private:v3:". $eventId, $fbInvitee['name'], $fbInvitee['id']);
             $pClient->hsetnx("user:" . $fbInvitee['id'], "api_id", $fbInvitee['id']);
+            $pClient->hsetnx("user:" . $fbInvitee['id'], "name", $fbInvitee['name']);
         }
         $counter += 1000;
         echo "Processed: $counter : $after        \r";
@@ -123,8 +127,9 @@ foreach($eventIds as $st=>$eventId) {
         $inviteesRaw = curl_get("https://graph.facebook.com/v2.6/$eventId/declined", array('access_token' => $accessKey, 'limit' => "1000", "after" => $after));
         $invitees = json_decode($inviteesRaw, true);
         foreach ($invitees['data'] as $fbInvitee) {
-            $pClient->hset("private:v2:". $eventId, $fbInvitee['id'], $fbInvitee['rsvp_status']);
+            $pClient->hset("private:v3:". $eventId, $fbInvitee['name'], $fbInvitee['id']);
             $pClient->hsetnx("user:" . $fbInvitee['id'], "api_id", $fbInvitee['id']);
+            $pClient->hsetnx("user:" . $fbInvitee['id'], "name", $fbInvitee['name']);
         }
         $counter += 1000;
         echo "Processed: $counter : $after        \r";
@@ -138,8 +143,9 @@ foreach($eventIds as $st=>$eventId) {
         $inviteesRaw = curl_get("https://graph.facebook.com/v2.6/$eventId/attending", array('access_token' => $accessKey, 'limit' => "1000", "after" => $after));
         $invitees = json_decode($inviteesRaw, true);
         foreach ($invitees['data'] as $fbInvitee) {
-            $pClient->hset("private:v2:". $eventId, $fbInvitee['id'], $fbInvitee['rsvp_status']);
+            $pClient->hset("private:v3:". $eventId, $fbInvitee['name'], $fbInvitee['id']);
             $pClient->hsetnx("user:" . $fbInvitee['id'], "api_id", $fbInvitee['id']);
+            $pClient->hsetnx("user:" . $fbInvitee['id'], "name", $fbInvitee['name']);
         }
         $counter += 1000;
         echo "Processed: $counter : $after        \r";
