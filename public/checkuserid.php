@@ -19,7 +19,7 @@ $pClient = new Predis\Client($single_server, array('profile' => '2.8'));
 if(isset($_GET['eid']) && is_numeric($_GET['eid'])) {
     if(isset($_GET['uid']) && is_numeric($_GET['uid'])) {
 
-        $lookup = $pClient->hget('private:v2:'.$_GET['eid'], $_GET['uid']);
+        $lookup = $pClient->hget('private:v3:'.$_GET['eid'], $_GET['uid']);
         $olookup = $pClient->hget('private:'.$_GET['eid'], $_GET['uid']);
 
         if($lookup == null && $olookup == null){
