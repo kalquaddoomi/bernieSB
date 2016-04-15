@@ -21,9 +21,6 @@ if(isset($_GET['fbactor']) && isset($_GET['fbact'])) {
     $rHKey = $_GET['fbactor'];
     $rHField = $_GET['fbact'];
     $pClient->hincrby($rHKey, $rHField, 1);
-    $pClient->incr($rHField . ":actions:" . $now);
-
-
 
     if(isset($_GET['fbhits'])) {
         $rHits = $_GET['fbhits'];
@@ -79,3 +76,7 @@ if(isset($_GET['fbactor']) && isset($_GET['fbact'])) {
     }
 }
 
+if(isset($_GET['fbact']) && isset($_GET['fbaction'])) {
+    $pClient->incr($_GET['fbact'] . ":actions:" . $now);
+    $pClient->incr($_GET['fbact'] . ":actions:" . "total");
+}

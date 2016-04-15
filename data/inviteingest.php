@@ -101,6 +101,7 @@ foreach($eventIds as $st=>$eventId) {
     }while (isset($invitees['paging']['next']));
     $pClient->set("lastafter:noreply:private:$eventId", $after);
 
+    $counter = 0;
     echo "\nProcess Maybes:\n";
     do {
         $after = (isset($invitees['paging']['cursors']['after']) ? $invitees['paging']['cursors']['after'] : '');
@@ -115,6 +116,7 @@ foreach($eventIds as $st=>$eventId) {
     }while (isset($invitees['paging']['next']));
     $pClient->set("lastafter:maybe:private:$eventId", $after);
 
+    $counter = 0;
     echo "\nProcess Declines:\n";
     do {
         $after = (isset($invitees['paging']['cursors']['after']) ? $invitees['paging']['cursors']['after'] : '');
@@ -129,6 +131,7 @@ foreach($eventIds as $st=>$eventId) {
     }while (isset($invitees['paging']['next']));
     $pClient->set("lastafter:declined:private:$eventId", $after);
 
+    $counter = 0;
     echo "\nProcess Attendings:\n";
     do {
         $after = (isset($invitees['paging']['cursors']['after']) ? $invitees['paging']['cursors']['after'] : '');
