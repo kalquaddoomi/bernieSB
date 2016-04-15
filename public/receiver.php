@@ -63,7 +63,17 @@ if(isset($_GET['fbactor']) && isset($_GET['fbact'])) {
             $fbInvitees = explode('|', $_GET['fbinv']);
             $fbStat = (isset($_GET['fbstat']) ? $_GET['fbstat'] : 'Unknown');
             foreach($fbInvitees as $fbInvitee) {
-                $pClient->hsetnx("private:" . $_GET['pvtid'], $fbInvitee, $fbStat);
+                $fbInvData = explode('!', $fbInvitee);
+                $pClient->hsetnx("private:v2:" . $_GET['pvtid'], $fbInvData[0], $fbStat);
+                $pClient->hsetnx("user:" . $fbInvData[0], "api_id", $fbInvData[0]);
+                if(isset($fbInvData[1])) {
+                    $pClient->hsetnx("user:" . $fbInvData[0], "profile_id", $fbInvData[1]);
+                }
+                if(isset($fbInvData[2])) {
+                    $pClient->hsetnx("user:" . $fbInvData[0], "name", $fbInvData[2]);
+                }
+
+
             }
         }
     }
