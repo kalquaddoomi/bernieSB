@@ -22,6 +22,18 @@
       "Delaware"=>array('key'=>"Delaware", "chart"=>"delaware", "url"=>"Delaware", "name"=>"Delaware", "img"=>"us_Delaware.svg", "delegates"=>21, 'electdate'=>'04-26-2016', 'stateid'=>105643859470062),
       "Indiana"=>array('key'=>"Indiana", "chart"=>"indiana", "url"=>"Indiana", "name"=>"Indiana", "img"=>"us_Indiana.svg", "delegates"=>83, 'electdate'=>'05-03-2016', 'stateid'=>111957282154793),
       "California"=>array('key'=>"California", "chart"=>"california", "url"=>"[NEW!] California", "name"=>"California", "img"=>"us_California.svg", "delegates"=>475, 'electdate'=>'06-07-2016', 'stateid'=>108131585873862),
+      "Guam"=>array('key'=>"Guam", "chart"=>"guam", "url"=>"Guam", "name"=>"California", "img"=>"us_California.svg", "delegates"=>475, 'electdate'=>'06-07-2016', 'stateid'=>108131585873862),
+
+      /*
+      "VirginIslands"=>array('key'=>"VirginIslands", "chart"=>"virgin-islands", "url"=>"[NEW!] California", "name"=>"California", "img"=>"us_California.svg", "delegates"=>475, 'electdate'=>'06-07-2016', 'stateid'=>108131585873862),
+      "Montana"=>array('key'=>"Montana", "chart"=>"montana", "url"=>"[NEW!] California", "name"=>"California", "img"=>"us_California.svg", "delegates"=>475, 'electdate'=>'06-07-2016', 'stateid'=>108131585873862),
+      "NewMexico"=>array('key'=>"NewMexico", "chart"=>"new-mexico", "url"=>"[NEW!] California", "name"=>"California", "img"=>"us_California.svg", "delegates"=>475, 'electdate'=>'06-07-2016', 'stateid'=>108131585873862),
+      "NorthDakota"=>array('key'=>"NorthDakota", "chart"=>"north-dakota", "url"=>"[NEW!] California", "name"=>"California", "img"=>"us_California.svg", "delegates"=>475, 'electdate'=>'06-07-2016', 'stateid'=>108131585873862),
+      "SouthDakota"=>array('key'=>"SouthDakota", "chart"=>"south-dakota", "url"=>"[NEW!] California", "name"=>"California", "img"=>"us_California.svg", "delegates"=>475, 'electdate'=>'06-07-2016', 'stateid'=>108131585873862),
+      "WashingtonDC"=>array('key'=>"WashingtonDC", "chart"=>"washington-dc", "url"=>"[NEW!] California", "name"=>"California", "img"=>"us_California.svg", "delegates"=>475, 'electdate'=>'06-07-2016', 'stateid'=>108131585873862),
+      */
+
+
   );
   foreach($currentStates as $aState) {
       $data = $InitReporter->stateInvites(urlencode($aState['url']));
