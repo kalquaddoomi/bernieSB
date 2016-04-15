@@ -20,7 +20,9 @@ if(isset($_GET['eid']) && is_numeric($_GET['eid'])) {
     if(isset($_GET['uid']) && is_numeric($_GET['uid'])) {
         header( 'Content-type:image/png' );
         $lookup = $pClient->hget('private:v2:'.$_GET['eid'], $_GET['uid']);
-        if($lookup == null){
+        $olookup = $pClient->hget('private:'.$_GET['eid'], $_GET['uid']);
+
+        if($lookup == null && $olookup == null){
             fpassthru( fopen( 'dist/info/no.png', 'rb'));
         } else {
             fpassthru( fopen( 'dist/info/yes.png', 'rb'));
