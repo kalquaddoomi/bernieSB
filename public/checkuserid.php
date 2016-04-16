@@ -26,7 +26,8 @@ if(isset($_GET['eid']) && is_numeric($_GET['eid'])) {
             header( 'Content-type:image/png' );
             fpassthru( fopen( 'dist/info/no.png', 'rb'));
         } else {
-            print "Fail, Fail, Fail";
+            header( 'Content-type:image/png' );
+            fpassthru( fopen( 'dist/info/yes.png', 'rb'));
         }
     }
 }
