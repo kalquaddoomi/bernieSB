@@ -17,17 +17,17 @@ $single_server = array(
 $pClient = new Predis\Client($single_server, array('profile' => '2.8'));
 
 if(isset($_GET['eid']) && is_numeric($_GET['eid'])) {
-    if(isset($_GET['uid']) && is_numeric($_GET['uid'])) {
+    if(isset($_GET['uid'])) {
 
         $lookup = $pClient->hget('private:v3:'.$_GET['eid'], $_GET['uid']);
-        $olookup = $pClient->hget('private:'.$_GET['eid'], $_GET['uid']);
+        //$olookup = $pClient->hget('private:'.$_GET['eid'], $_GET['uid']);
 
-        if($lookup == null && $olookup == null){
+        if($lookup == null){
             header( 'Content-type:image/png' );
-            fpassthru( fopen( 'dist/info/no.png', 'rb'));
+            fpassthru( fopen( './dist/info/no.png', 'rb'));
         } else {
             header( 'Content-type:image/png' );
-            fpassthru( fopen( 'dist/info/yes.png', 'rb'));
+            fpassthru( fopen( './dist/info/yes.png', 'rb'));
         }
     }
 }
