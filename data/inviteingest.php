@@ -5,6 +5,8 @@
  * Date: 4/13/16
  * Time: 11:15 AM
  */
+chdir(dirname(__FILE__));
+
 $eventIds = array(
     "NY"=>811998435572003,
     "NJ"=>229216130762869,
