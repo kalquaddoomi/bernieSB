@@ -21,8 +21,9 @@
       "RhodeIsland"=>array('key'=>"RhodeIsland", "chart"=>"rhode-island", "url"=>"Rhode Island", "name"=>"Rhode Island", "img"=>"us_RhodeIsland.svg", "delegates"=>24, 'electdate'=>'04-26-2016', 'stateid'=>108295552526163),
       "Delaware"=>array('key'=>"Delaware", "chart"=>"delaware", "url"=>"Delaware", "name"=>"Delaware", "img"=>"us_Delaware.svg", "delegates"=>21, 'electdate'=>'04-26-2016', 'stateid'=>105643859470062),
       "Indiana"=>array('key'=>"Indiana", "chart"=>"indiana", "url"=>"Indiana", "name"=>"Indiana", "img"=>"us_Indiana.svg", "delegates"=>83, 'electdate'=>'05-03-2016', 'stateid'=>111957282154793),
+      "Guam"=>array('key'=>"Guam", "chart"=>"guam", "url"=>"Guam", "name"=>"Guam", "img"=>"us_Guam.svg", "delegates"=>7, 'electdate'=>'05-07-2016', 'stateid'=>108131585873862),
       "California"=>array('key'=>"California", "chart"=>"california", "url"=>"[NEW!] California", "name"=>"California", "img"=>"us_California.svg", "delegates"=>475, 'electdate'=>'06-07-2016', 'stateid'=>108131585873862),
-      "Guam"=>array('key'=>"Guam", "chart"=>"guam", "url"=>"Guam", "name"=>"California", "img"=>"us_California.svg", "delegates"=>475, 'electdate'=>'06-07-2016', 'stateid'=>108131585873862),
+
 
       /*
       "VirginIslands"=>array('key'=>"VirginIslands", "chart"=>"virgin-islands", "url"=>"[NEW!] California", "name"=>"California", "img"=>"us_California.svg", "delegates"=>475, 'electdate'=>'06-07-2016', 'stateid'=>108131585873862),
