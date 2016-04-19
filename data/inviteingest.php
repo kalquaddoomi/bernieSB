@@ -85,11 +85,37 @@ function curl_get($url, array $get = NULL, array $options = array())
     return $result;
 }
 
+function processInvites($eventId, $actionType) {
+    echo "\nProcess $actionType:\n";
+    $counter = 0;
+    $invitees = null;
+    $inviteesRaw = null;
+    $after = '';
+    do {
+        $after = (isset($invitees['paging']['cursors']['after']) ? $invitees['paging']['cursors']['after'] : '');
+        $inviteesRaw = curl_get("https://graph.facebook.com/v2.6/$eventId/$actionType", array('access_token' => $accessKey, 'limit' => "1000", "after" => $after));
+        if(!$inviteesRaw) {
+            die(var_dump($inviteesRaw));
+        }
+        $invitees = json_decode($inviteesRaw, true);
+        foreach ($invitees['data'] as $fbInvitee) {
+            $pClient->hset("private:v3:". $eventId, $fbInvitee['name'], $fbInvitee['id']);
+            $pClient->hsetnx("user:" . $fbInvitee['id'], "api_id", $fbInvitee['id']);
+            $pClient->hsetnx("user:" . $fbInvitee['id'], "name", $fbInvitee['name']);
+        }
+        $counter += 1000;
+        echo "Processing : $counter     \r";
+    } while (isset($invitees['paging']['next']));
+}
+
 $accessKey = "CAAWeUZAZAY4jcBAPENgLx06XVEP93xlxfweC0j471fWRpcZCmVyYmneXUkcw8S4SdL9OQREtuvhAWIP8QvXuQGbxfMlO5EzT0ZAUYxgG8wV5TcQDQtKXaCvBmkOKxZAoShSDKdAXztYAbkGRdHn7OEccJ4WiGOyRDyPkpjEPSe9hWEQR4HaOcKB5jydljIZAkZD";
 
 foreach($eventIds as $st=>$eventId) {
     echo "\nProcessing $st :\n";
     $counter = 0;
+    $invitees = null;
+    $inviteesRaw = null;
+    $after = '';
 
     echo "\nProcess No Replies:\n";
     do {
@@ -107,6 +133,9 @@ foreach($eventIds as $st=>$eventId) {
     $pClient->set("lastafter:noreply:private:$eventId", $after);
 
     $counter = 0;
+    $invitees = null;
+    $inviteesRaw = null;
+    $after = '';
     echo "\nProcess Maybes:\n";
     do {
         $after = (isset($invitees['paging']['cursors']['after']) ? $invitees['paging']['cursors']['after'] : '');
@@ -123,6 +152,9 @@ foreach($eventIds as $st=>$eventId) {
     $pClient->set("lastafter:maybe:private:$eventId", $after);
 
     $counter = 0;
+    $invitees = null;
+    $inviteesRaw = null;
+    $after = '';
     echo "\nProcess Declines:\n";
     do {
         $after = (isset($invitees['paging']['cursors']['after']) ? $invitees['paging']['cursors']['after'] : '');
@@ -139,6 +171,9 @@ foreach($eventIds as $st=>$eventId) {
     $pClient->set("lastafter:declined:private:$eventId", $after);
 
     $counter = 0;
+    $invitees = null;
+    $inviteesRaw = null;
+    $after = '';
     echo "\nProcess Attendings:\n";
     do {
         $after = (isset($invitees['paging']['cursors']['after']) ? $invitees['paging']['cursors']['after'] : '');
