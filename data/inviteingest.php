@@ -8,19 +8,18 @@
 chdir(dirname(__FILE__));
 
 $eventIds = array(
-    "NY"=>811998435572003,
+    "CA"=>1558296317802512,
+    "IN"=>133011150427768,
+    "OR"=>605367332973455,
     "NJ"=>229216130762869,
-    "MD"=>1032906533414147,
-    "PA"=>1721567841460557,
     "KY"=>521701654668687,
     "PR"=>496254420561306,
     "WV"=>1582995155349064,
-    "CT"=>574021212779237,
-    "OR"=>605367332973455,
-    "RI"=>1776422845918803,
-    "DE"=>214899885533267,
-    "IN"=>133011150427768,
-    "CA"=>1558296317802512,
+    "NM"=>279799149019906,
+    "DC"=>273158089687943,
+    "SD"=>502120086651398,
+    "ND"=>160355097698472,
+    "MT"=>364344583689477,
     "GM"=>1703259566578785
 );
 require_once '../vendor/autoload.php';
@@ -85,31 +84,10 @@ function curl_get($url, array $get = NULL, array $options = array())
     return $result;
 }
 
-function processInvites($eventId, $actionType) {
-    echo "\nProcess $actionType:\n";
-    $counter = 0;
-    $invitees = null;
-    $inviteesRaw = null;
-    $after = '';
-    do {
-        $after = (isset($invitees['paging']['cursors']['after']) ? $invitees['paging']['cursors']['after'] : '');
-        $inviteesRaw = curl_get("https://graph.facebook.com/v2.6/$eventId/$actionType", array('access_token' => $accessKey, 'limit' => "1000", "after" => $after));
-        if(!$inviteesRaw) {
-            die(var_dump($inviteesRaw));
-        }
-        $invitees = json_decode($inviteesRaw, true);
-        foreach ($invitees['data'] as $fbInvitee) {
-            $pClient->hset("private:v3:". $eventId, $fbInvitee['name'], $fbInvitee['id']);
-            $pClient->hsetnx("user:" . $fbInvitee['id'], "api_id", $fbInvitee['id']);
-            $pClient->hsetnx("user:" . $fbInvitee['id'], "name", $fbInvitee['name']);
-        }
-        $counter += 1000;
-        echo "Processing : $counter     \r";
-    } while (isset($invitees['paging']['next']));
-}
-
 $accessKey = "CAAWeUZAZAY4jcBAPENgLx06XVEP93xlxfweC0j471fWRpcZCmVyYmneXUkcw8S4SdL9OQREtuvhAWIP8QvXuQGbxfMlO5EzT0ZAUYxgG8wV5TcQDQtKXaCvBmkOKxZAoShSDKdAXztYAbkGRdHn7OEccJ4WiGOyRDyPkpjEPSe9hWEQR4HaOcKB5jydljIZAkZD";
-
+//if(isset($argv[1]) && $argv[1] > 0) {
+//    $useEventsIds =
+//}
 foreach($eventIds as $st=>$eventId) {
     echo "\nProcessing $st :\n";
     $counter = 0;
